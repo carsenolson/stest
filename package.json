@@ -1,0 +1,14 @@
+{
+  "name": "stest",
+  "version": "1.0.0",
+  "description": "This program is made for testing students",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "Carsen Olson",
+  "license": "MIT",
+  "dependencies": {
+    "electron": "^2.0.3"
+  }
+}

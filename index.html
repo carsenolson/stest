@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>STest</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    </head>
+    <body>
+        <div class="row">
+            <div class="col">
+                <div class="d-block p-3 bg-dark text-white"><h3>STest</h3></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3 ml-5">
+                <input type="text" class="mt-3" id="inputName" placeholder="First Last names"> <p></p>
+                <input type="text" id="inputClassNum" placeholder="Class/group number"><p></p>
+                <select class="custom-select" id="inputGroupSelect01">
+
+                </select><p></p>
+                <a href="test.html" id="startTestLink">Start test</a> <p></p>
+                <a href="activate.html">Enter api info</a>
+            </div>
+
+        </div>
+        <script src="https://www.gstatic.com/firebasejs/5.2.0/firebase.js"></script>
+
+        <script>
+            const {ipcRenderer} = require('electron');
+            var fbconfig = {};
+            var testSelect = document.getElementById('inputGroupSelect01');
+            var startTestLink = document.getElementById('startTestLink');
+            var inputName = document.getElementById('inputName');
+            var inputClassNum = document.getElementById('inputClassNum');
+            var globTests = [];
+
+            function gotData(data) {
+                globTests = data.val();
+                var keys = Object.keys(globTests);
+                console.log(keys);
+                for (var i = 0; i < keys.length; i++) {
+                    var k = keys[i];
+                    var testName = globTests[k].test_name;
+                    var option = document.createElement('option');
+                    option.setAttribute('value', k);
+                    option.innerHTML = testName;
+                    testSelect.appendChild(option);
+                    console.log(i);
+                    console.log(testName);
+                }
+            }
+
+            function errData(err) {
+                console.log('Error!');
+                console.log(err);
+            }
+
+            startTestLink.onclick = () => {
+                var studentsInfo = {
+                    name: inputName.value,
+                    classNum: inputClassNum.value,
+                    correctTest: globTests[testSelect.value]
+                }
+                ipcRenderer.send('asynchronous-message', [2, studentsInfo]);
+            }
+
+            ipcRenderer.send('asynchronous-message', 1);
+            ipcRenderer.on('asynchronous-reply', (event, arg) => {
+                console.log(arg);
+                firebase.initializeApp(arg);
+                firebase.database().ref('tests').on('value', gotData, errData);
+            });
+
+        </script>
+
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+    </body>
+</html>

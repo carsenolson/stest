@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Activate Page</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    </head>
+    <body>
+
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="d-block p-3 bg-dark text-white"><h3><a href="index.html">Home/</a>Activate Page</h3></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-11 mx-auto text-dark">
+                    <p>Docs:</p>
+                    <ul>
+                        <li>For activating the program you should have a google account (if you don't create your own).</li>
+                        <li>When you get a google account, go to the firebase.google.com then go to console and press 'Add Firebase to your web app'.</li>
+                        <li>Enter all your API information to the inputs.</li>
+                    </ul>
+                </div>
+            </div>
+           <div class="row">
+                <div class="col">
+                    <input class="mt-1" id="apiKey" type="text" placeholder="apiKey">
+                </div>
+           </div>
+           <div class="row">
+                <div class="col">
+                    <input class="mt-1" id="authDomain" type="text" placeholder="authDomain">
+                </div>
+           </div>
+           <div class="row">
+                <div class="col">
+                    <input class="mt-1" id="databaseURL" type="text" placeholder="databaseURL">
+                </div>
+           </div>
+           <div class="row">
+                <div class="col">
+                    <input class="mt-1" id="projectId" type="text" placeholder="projectId">
+                </div>
+           </div>
+           <div class="row">
+                <div class="col">
+                    <input class="mt-1" id="storageBucket" type="text" placeholder="storageBucket">
+                </div>
+           </div>
+           <div class="row">
+                <div class="col">
+                    <input class="mt-1" id="messagingSenderId" type="text" placeholder="messagingSenderId">
+                </div>
+           </div>
+           <p></p>
+           <p></p>
+           <div class="row">
+               <div class="col">
+                   <button type="button" id="saveButton" class="btn btn-primary">Save</button>
+               </div>
+
+
+        </div>
+        <script src="https://www.gstatic.com/firebasejs/5.2.0/firebase.js"></script>
+        <script>
+
+            const {ipcRenderer} = require('electron');
+            console.log(ipcRenderer);
+            var saveBut = document.getElementById('saveButton');
+
+            var apiKeyVal = document.getElementById('apiKey');
+            var authDomainVal = document.getElementById('authDomain');
+            var databaseURLVal = document.getElementById('databaseURL');
+            var projectIdVal = document.getElementById('projectId');
+            var storageBucketVal = document.getElementById('storageBucket');
+            var messagingSenderIdVal = document.getElementById('messagingSenderId');
+
+
+            function saveFirebaseConfig() {
+                var config = {
+                    apiKey: apiKeyVal.value,
+                    authDomain: authDomainVal.value,
+                    databaseURL: databaseURLVal.value,
+                    projectId: projectIdVal.value,
+                    storageBucket: storageBucket.value,
+                    messagingSenderId: messagingSenderIdVal.value
+                };
+                console.log(config);
+                ipcRenderer.send('asynchronous-message', [4, config]);
+
+                apiKeyVal.value = "";
+                authDomainVal.value = "";
+                databaseURLVal.value = "";
+                projectIdVal.value = "";
+                storageBucketVal.value = "";
+                messagingSenderIdVal.value = "";
+            }
+
+            saveBut.onclick = saveFirebaseConfig;
+            ipcRenderer.send('asynchronous-message', 1);
+            ipcRenderer.on('asynchronous-reply', (event, arg) => {
+                console.log(arg);
+            });
+
+        </script>
+
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+    </body>
+</html>
