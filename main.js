@@ -31,7 +31,7 @@ function createWindow() {
         }
 
         function finished(err){
-            console.log('all set.');
+            console.log('all just been set.');
         }
     });
 }

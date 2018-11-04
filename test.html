@@ -8,33 +8,28 @@
     <body>
         <div class="row">
             <div class="col-sm">
-                <div class="d-block p-3 bg-dark text-white"><h3 id="testTitle"><a href="index.html">Home/</a></h3></div>
+                <div class="d-block p-3 bg-dark text-white"><h5 id="testTitle"><a href="index.html">Home/</a></h5></div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-sm-8 text-dark bg-light" id="questionArea">
+        
+    	<div class="col-sm-6 text-dark bg-light" id="questionArea">
                 <!-- Contains a question. -->
-
-
-            </div>
-            <div class="col-sm-4" id="imageDiv">
-                <!-- contains a image -->
-            </div>
         </div>
-        <div class="row">
-            <div class="col-sm-10" id="answersArea">
+       	
+		<div class="col-sm-4" id="imageDiv">
+                <!-- contains an image -->
+       	</div>
+     
+		<div class="col-sm-6" id="answersArea">
                 <!-- contains answers -->
-
-            </div>
         </div>
-        <div class="row">
+ 
+	   	<div class="row">
             <div class="col-lg-10">
                 <!-- contains a nav_panel -->
-                <div class="d-flex justify-content-between fixed-bottom mb-3">
+				
+				<div class="d-flex justify-content-between fixed-bottom mb-3">
                     <div class="p-2 text-dark ml-3">
-                        <p id="dCurrentQuestionNumber" class="p-2 text-dark bg-light">
-
-                        </p>
                         <div id="dAllQuestionNumber" class="p-2 text-dark bg-light">
 
                         </div>
@@ -47,13 +42,14 @@
                         <button type="button" id="shiftRight" class="btn btn-primary">></button>
                     </div>
                     <div class="mr-3">
-                        <button type="button" class="btn btn-success float-right">Finish</button>
+                        <button type="button" id="finishBut" class="btn btn-success float-right">Finish</a>
                     </div>
                 </div>
 
             </div>
         </div>
-
+        
+        <script src="https://www.gstatic.com/firebasejs/5.2.0/firebase.js"></script>
         <script src="testScript.js"></script>
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
